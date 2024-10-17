@@ -32,7 +32,7 @@ Route::get('/', function () {
  });
 
 Route::prefix('/admin')->group(function () {
-    Route::resource('/user', AdminUsercontroller::class);
+    Route::resource('/user', AdminUserController::class);
 });
 
 

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
-class AdminUsercontroller extends Controller
+
+class AdminUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +16,8 @@ class AdminUsercontroller extends Controller
      */
     public function index()
     {
-        //
         $data = [
-            'content' => 'admin.user.index' 
+            'content' => 'admin.user.index'
         ];
         return view('admin.layouts.wrapper', $data);
     }
@@ -27,9 +29,8 @@ class AdminUsercontroller extends Controller
      */
     public function create()
     {
-        //
         $data = [
-            'content' => 'admin.user.create' 
+            'content' => 'admin.user.create'
         ];
         return view('admin.layouts.wrapper', $data);
     }
@@ -42,7 +43,16 @@ class AdminUsercontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        // Proses penyimpanan data user baru
+        User::create($data);
+
+        return redirect('admin.user.index');
     }
 
     /**
